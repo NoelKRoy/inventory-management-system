@@ -2,7 +2,7 @@
 
 A comprehensive web-based inventory management application built with **Angular 21** and **TypeScript**. This system monitors product stocks, suppliers, and purchase orders with a modern, responsive UI.
 
-## 🎯 Features
+##  Features
 
 ### Core Functionality
 - **Product Management**: Create, read, update, and delete products with detailed information
@@ -20,7 +20,7 @@ A comprehensive web-based inventory management application built with **Angular 
 - **HTTP Integration**: Full CRUD operations with mock data fallback
 - **Error Handling**: Comprehensive error handling and user feedback
 
-## 📦 Technology Stack
+##  Technology Stack
 
 | Technology | Version | Purpose |
 |---|---|---|
@@ -31,7 +31,7 @@ A comprehensive web-based inventory management application built with **Angular 
 | **Angular Router** | ^21.0.0 | Navigation |
 | **Node.js** | Latest | Development environment |
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 inventory-management-system/
@@ -69,7 +69,7 @@ inventory-management-system/
 └── README.md                        # This file
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -96,7 +96,7 @@ inventory-management-system/
 4. **Open in browser:**
    Navigate to `http://localhost:4200` in your web browser.
 
-## 📖 Usage Guide
+##  Usage Guide
 
 ### Dashboard
 - **Overview**: Key metrics including total products, suppliers, inventory value
@@ -123,7 +123,7 @@ inventory-management-system/
 - **Filter**: Filter by order type (In/Out) and status (Pending/Completed/Cancelled)
 - **Statistics**: View total inflow/outflow and pending orders
 
-## 🎨 Key Components & Services
+##  Key Components & Services
 
 ### Services (Dependency Injection Pattern)
 
@@ -141,7 +141,7 @@ Three main domain models with interfaces and implementation classes:
 **Supplier**: Company info, contact person, email, phone  
 **Order**: Product reference, quantity, type (IN/OUT), status, date  
 
-## 🔄 Data Flow Architecture
+##  Data Flow Architecture
 
 ```
 User Interaction → Component → Service (Observable) → HTTP/Mock API
@@ -153,7 +153,7 @@ User Interaction → Component → Service (Observable) → HTTP/Mock API
                                  UI Display
 ```
 
-## 🛣️ Routing Configuration
+##  Routing Configuration
 
 - `/dashboard` - Main dashboard with key metrics
 - `/products` - Product listing and management
@@ -161,7 +161,7 @@ User Interaction → Component → Service (Observable) → HTTP/Mock API
 - `/suppliers` - Supplier management
 - `/orders` - Order tracking and management
 
-## 🎯 Forms Implementation
+##  Forms Implementation
 
 ### Reactive Forms
 - **Products**: FormBuilder with custom validators
@@ -173,7 +173,7 @@ User Interaction → Component → Service (Observable) → HTTP/Mock API
 - Simple form handling with minimal code
 - Good for straightforward data entry
 
-## 🔌 API & Mock Data
+##  API & Mock Data
 
 The system uses intelligent mock data fallback:
 
@@ -187,7 +187,7 @@ HTTP Request Attempt → Success: Use API → Display Data
 
 Mock data includes sample products, suppliers, and orders for testing.
 
-## 🎨 UI Components & Styling
+##  UI Components & Styling
 
 - **Responsive Grid Layouts**: Adaptable to any screen size
 - **Color-Coded Alerts**: Green (good), yellow (warning), red (critical)
@@ -195,7 +195,7 @@ Mock data includes sample products, suppliers, and orders for testing.
 - **Sidebar Navigation**: Collapsible with icon support
 - **Modal Dialogs**: Confirmation for destructive actions
 
-## 📊 Analytics & Metrics
+##  Analytics & Metrics
 
 Dashboard displays:
 - Total inventory value calculation
@@ -204,20 +204,20 @@ Dashboard displays:
 - Supplier performance metrics
 - Low-stock inventory alerts
 
-## ✅ Key Accomplishments
+##  Key Accomplishments
 
-- ✅ 8 Fully functional components
-- ✅ 3 Complete service implementations
-- ✅ Comprehensive type safety with TypeScript
-- ✅ RxJS Observable patterns
-- ✅ Reactive and template-driven forms
-- ✅ Custom pipes and directives
-- ✅ Responsive mobile-first design
-- ✅ Error handling and user feedback
-- ✅ Mock API with fallback strategy
-- ✅ Complete routing structure
+-  8 Fully functional components
+-  3 Complete service implementations
+-  Comprehensive type safety with TypeScript
+-  RxJS Observable patterns
+-  Reactive and template-driven forms
+-  Custom pipes and directives
+-  Responsive mobile-first design
+-  Error handling and user feedback
+-  Mock API with fallback strategy
+-  Complete routing structure
 
-## 🚀 Running the Application
+##  Running the Application
 
 ```bash
 # Development server
@@ -231,7 +231,7 @@ npm run build
 npm test
 ```
 
-## 📝 Future Enhancement Opportunities
+##  Future Enhancement Opportunities
 
 - Authentication and role-based access control
 - Advanced analytics and reporting
@@ -244,7 +244,7 @@ npm test
 - Inventory forecasting
 - Supplier performance analytics
 
-## 🔒 Security Features
+##  Security Features
 
 - Input validation on all forms
 - Angular's built-in XSS protection
