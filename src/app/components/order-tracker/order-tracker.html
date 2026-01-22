@@ -1,0 +1,100 @@
+<div class="order-tracker-container">
+  <div class="header">
+    <h1>Order Tracker</h1>
+    <a routerLink="/orders/new" class="btn btn-primary">Create New Order</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading orders...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="loadData()" class="btn btn-secondary">Retry</button>
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Inflow</h3>
+        <p class="value">{{ getTotalInflow() }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Outflow</h3>
+        <p class="value">{{ getTotalOutflow() }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Pending Orders</h3>
+        <p class="value">{{ getPendingCount() }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Orders</h3>
+        <p class="value">{{ filteredOrders.length }}</p>
+      </div>
+    </div>
+
+    <div class="filters">
+      <div class="filter-group">
+        <label>Type:</label>
+        <select [(ngModel)]="filter">
+          <option value="ALL">All</option>
+          <option value="IN">Inflow</option>
+          <option value="OUT">Outflow</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Status:</label>
+        <select [(ngModel)]="statusFilter">
+          <option value="ALL">All</option>
+          <option value="PENDING">Pending</option>
+          <option value="COMPLETED">Completed</option>
+          <option value="CANCELLED">Cancelled</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="orders-table">
+      <div *ngIf="filteredOrders.length === 0" class="empty-state">
+        <p>No orders found with selected filters</p>
+      </div>
+
+      <table *ngIf="filteredOrders.length > 0">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Product</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of filteredOrders" [ngClass]="'order-' + order.type.toLowerCase()">
+            <td>{{ order.id }}</td>
+            <td>{{ getProductName(order.productId) }}</td>
+            <td>
+              <span [ngClass]="'badge ' + (order.type === 'IN' ? 'badge-success' : 'badge-danger')">
+                {{ order.type === 'IN' ? 'Inflow' : 'Outflow' }}
+              </span>
+            </td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.orderDate | date: 'short' }}</td>
+            <td>
+              <span [ngClass]="'status status-' + (order.status || 'pending').toLowerCase()">
+                {{ order.status || 'PENDING' }}
+              </span>
+            </td>
+            <td>{{ order.notes || '-' }}</td>
+            <td class="actions">
+              <a [routerLink]="['/orders', order.id, 'edit']" class="btn btn-warning">Edit</a>
+              <button (click)="deleteOrder(order.id)" class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

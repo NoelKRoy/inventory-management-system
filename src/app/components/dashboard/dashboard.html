@@ -1,0 +1,154 @@
+<div class="dashboard-container">
+  <h1>Inventory Dashboard</h1>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading dashboard...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="loadDashboardData()" class="btn btn-secondary">Retry</button>
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <!-- Key Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <h3>Total Products</h3>
+        <p class="value">{{ totalProducts }}</p>
+        <a routerLink="/products" class="link">View Products →</a>
+      </div>
+      <div class="metric-card">
+        <h3>Total Suppliers</h3>
+        <p class="value">{{ totalSuppliers }}</p>
+        <a routerLink="/suppliers" class="link">View Suppliers →</a>
+      </div>
+      <div class="metric-card">
+        <h3>Total Inventory Value</h3>
+        <p class="value">${{ totalInventoryValue.toFixed(2) }}</p>
+        <p class="subtitle">{{ getTotalInventoryInStock() }} units in stock</p>
+      </div>
+      <div class="metric-card">
+        <h3>Low Stock Items</h3>
+        <p class="value warning">{{ lowStockProducts.length }}</p>
+        <p class="subtitle">Requires attention</p>
+      </div>
+      <div class="metric-card">
+        <h3>Pending Orders</h3>
+        <p class="value warning">{{ pendingOrders.length }}</p>
+        <p class="subtitle">Awaiting completion</p>
+      </div>
+      <div class="metric-card">
+        <h3>Orders Today</h3>
+        <p class="value">{{ getTodayOrders() }}</p>
+        <p class="subtitle">Latest activity</p>
+      </div>
+    </div>
+
+    <!-- Low Stock Products -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Low Stock Products</h2>
+        <a routerLink="/products" class="btn btn-small btn-info">View All →</a>
+      </div>
+      <div *ngIf="lowStockProducts.length === 0" class="empty-message">
+        <p>All products are well-stocked!</p>
+      </div>
+      <div *ngIf="lowStockProducts.length > 0" class="products-list">
+        <div *ngFor="let product of lowStockProducts" class="product-item">
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-stock">
+            <span class="label">Stock:</span>
+            <span class="value">{{ product.quantity }}/{{ product.reorderLevel }}</span>
+          </div>
+          <a [routerLink]="['/products', product.id]" class="btn btn-mini btn-info">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending Orders -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Pending Orders</h2>
+        <a routerLink="/orders" class="btn btn-small btn-info">View All →</a>
+      </div>
+      <div *ngIf="pendingOrders.length === 0" class="empty-message">
+        <p>No pending orders!</p>
+      </div>
+      <div *ngIf="pendingOrders.length > 0" class="orders-list">
+        <div *ngFor="let order of pendingOrders" class="order-item">
+          <div class="order-header">
+            <span class="order-id">Order #{{ order.id }}</span>
+            <span [ngClass]="'badge ' + (order.type === 'IN' ? 'badge-success' : 'badge-danger')">
+              {{ order.type === 'IN' ? 'Inflow' : 'Outflow' }}
+            </span>
+          </div>
+          <div class="order-details">
+            <span class="product">{{ getProductName(order.productId) }}</span>
+            <span class="quantity">Qty: {{ order.quantity }}</span>
+            <span class="date">{{ order.orderDate | date: 'short' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Recent Orders</h2>
+        <a routerLink="/orders" class="btn btn-small btn-info">View All →</a>
+      </div>
+      <div *ngIf="recentOrders.length === 0" class="empty-message">
+        <p>No orders yet</p>
+      </div>
+      <div *ngIf="recentOrders.length > 0" class="recent-orders-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Product</th>
+              <th>Type</th>
+              <th>Quantity</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of recentOrders">
+              <td>#{{ order.id }}</td>
+              <td>{{ getProductName(order.productId) }}</td>
+              <td>
+                <span [ngClass]="'badge ' + (order.type === 'IN' ? 'badge-success' : 'badge-danger')">
+                  {{ getOrderTypeLabel(order.type) }}
+                </span>
+              </td>
+              <td>{{ order.quantity }}</td>
+              <td>{{ order.orderDate | date: 'short' }}</td>
+              <td>
+                <span [ngClass]="'status status-' + (order.status || 'pending').toLowerCase()">
+                  {{ order.status || 'PENDING' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="quick-stats">
+      <div class="stat">
+        <h4>Avg Product Price</h4>
+        <p>${{ getAverageProductPrice().toFixed(2) }}</p>
+      </div>
+      <div class="stat">
+        <h4>Total Orders</h4>
+        <p>{{ orders.length }}</p>
+      </div>
+      <div class="stat">
+        <h4>Completed Orders</h4>
+        <p>{{ completedOrdersCount }}</p>
+      </div>
+    </div>
+  </div>
+</div>

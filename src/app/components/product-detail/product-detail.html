@@ -1,0 +1,118 @@
+<div class="product-detail-container" *ngIf="!loading && !error && product">
+  <div class="header">
+    <a routerLink="/products" class="back-btn">← Back to Products</a>
+  </div>
+
+  <div class="product-info">
+    <div class="main-section">
+      <h1>{{ product.name }}</h1>
+      <span [ngClass]="'badge ' + getStatusClass()">{{ getStockStatus() }}</span>
+
+      <div class="description" *ngIf="product.description">
+        <p>{{ product.description }}</p>
+      </div>
+
+      <div class="details-grid">
+        <div class="detail-card">
+          <h3>Price</h3>
+          <p class="value">${{ product.price.toFixed(2) }}</p>
+        </div>
+        <div class="detail-card">
+          <h3>Current Stock</h3>
+          <p class="value">{{ product.quantity }} units</p>
+        </div>
+        <div class="detail-card">
+          <h3>Reorder Level</h3>
+          <p class="value">{{ product.reorderLevel }} units</p>
+        </div>
+        <div class="detail-card" *ngIf="product.category">
+          <h3>Category</h3>
+          <p class="value">{{ product.category }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="card">
+        <h3>Supplier Information</h3>
+        <div *ngIf="supplier" class="supplier-info">
+          <p><strong>Name:</strong> {{ supplier.name }}</p>
+          <p><strong>Contact:</strong> {{ supplier.contact }}</p>
+          <p><strong>Email:</strong> {{ supplier.email }}</p>
+          <p *ngIf="supplier.phone"><strong>Phone:</strong> {{ supplier.phone }}</p>
+          <p *ngIf="supplier.city"><strong>City:</strong> {{ supplier.city }}</p>
+        </div>
+        <div *ngIf="!supplier" class="loading-text">Loading supplier info...</div>
+      </div>
+
+      <div class="card">
+        <h3>Stock Summary</h3>
+        <div class="summary-item">
+          <span>Total Inflow:</span>
+          <span class="value">{{ getTotalInflow() }}</span>
+        </div>
+        <div class="summary-item">
+          <span>Total Outflow:</span>
+          <span class="value">{{ getTotalOutflow() }}</span>
+        </div>
+        <div class="summary-item">
+          <span>Net Change:</span>
+          <span class="value">{{ getTotalInflow() - getTotalOutflow() }}</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a [routerLink]="['/products', product.id, 'edit']" class="btn btn-warning">Edit Product</a>
+        <a routerLink="/orders" class="btn btn-info">View All Orders</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="orders-section">
+    <h2>Order History</h2>
+    <div *ngIf="orders.length === 0" class="empty-message">
+      <p>No orders found for this product</p>
+    </div>
+    <div *ngIf="orders.length > 0" class="orders-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders" [ngClass]="'order-' + order.type.toLowerCase()">
+            <td>{{ order.id }}</td>
+            <td>
+              <span [ngClass]="'badge ' + (order.type === 'IN' ? 'badge-success' : 'badge-danger')">
+                {{ order.type === 'IN' ? 'Inflow' : 'Outflow' }}
+              </span>
+            </td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.orderDate | date: 'short' }}</td>
+            <td>
+              <span [ngClass]="'status ' + (order.status || 'PENDING')" class="lowercase">
+                {{ order.status || 'PENDING' }}
+              </span>
+            </td>
+            <td>{{ order.notes || '-' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading">
+  <p>Loading product details...</p>
+</div>
+
+<div *ngIf="error" class="error">
+  <p>{{ error }}</p>
+  <a routerLink="/products" class="btn btn-secondary">Back to Products</a>
+</div>

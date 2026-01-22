@@ -1,0 +1,58 @@
+<div class="product-list-container">
+  <div class="header">
+    <h1>Products</h1>
+    <a routerLink="/products/new" class="btn btn-primary">Add New Product</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading products...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="loadProducts()" class="btn btn-secondary">Retry</button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="products-grid">
+    <div *ngIf="products.length === 0" class="empty-state">
+      <p>No products available. <a routerLink="/products/new">Create one now</a></p>
+    </div>
+
+    <div *ngFor="let product of products" class="product-card">
+      <div class="card-header">
+        <h3>{{ product.name }}</h3>
+        <span [ngClass]="'badge ' + getStatusClass(product)">
+          {{ getStockStatus(product) }}
+        </span>
+      </div>
+      
+      <div class="card-body">
+        <p *ngIf="product.description" class="description">{{ product.description }}</p>
+        <div class="product-details">
+          <div class="detail-item">
+            <span class="label">Price:</span>
+            <span class="value">${{ product.price.toFixed(2) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Quantity:</span>
+            <span class="value">{{ product.quantity }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Reorder Level:</span>
+            <span class="value">{{ product.reorderLevel }}</span>
+          </div>
+          <div class="detail-item" *ngIf="product.category">
+            <span class="label">Category:</span>
+            <span class="value">{{ product.category }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <a [routerLink]="['/products', product.id]" class="btn btn-info">View</a>
+        <a [routerLink]="['/products', product.id, 'edit']" class="btn btn-warning">Edit</a>
+        <button (click)="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

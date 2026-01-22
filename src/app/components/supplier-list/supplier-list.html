@@ -1,0 +1,51 @@
+<div class="supplier-list-container">
+  <div class="header">
+    <h1>Suppliers</h1>
+    <a routerLink="/suppliers/new" class="btn btn-primary">Add New Supplier</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading suppliers...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="loadSuppliers()" class="btn btn-secondary">Retry</button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="suppliers-table">
+    <div *ngIf="suppliers.length === 0" class="empty-state">
+      <p>No suppliers available. <a routerLink="/suppliers/new">Create one now</a></p>
+    </div>
+
+    <table *ngIf="suppliers.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Contact Person</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>City</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let supplier of suppliers">
+          <td>{{ supplier.id }}</td>
+          <td><strong>{{ supplier.name }}</strong></td>
+          <td>{{ supplier.contact }}</td>
+          <td>
+            <a [href]="'mailto:' + supplier.email">{{ supplier.email }}</a>
+          </td>
+          <td>{{ supplier.phone || '-' }}</td>
+          <td>{{ supplier.city || '-' }}</td>
+          <td class="actions">
+            <a [routerLink]="['/suppliers', supplier.id, 'edit']" class="btn btn-warning">Edit</a>
+            <button (click)="deleteSupplier(supplier.id)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

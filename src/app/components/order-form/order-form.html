@@ -1,0 +1,112 @@
+<div class="order-form-container">
+  <div class="header">
+    <h1>{{ isEditMode ? 'Edit Order' : 'Create New Order' }}</h1>
+    <a routerLink="/orders" class="back-btn">← Back</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  <form [formGroup]="orderForm" (ngSubmit)="submitForm()" class="form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="productId">Product *</label>
+        <select
+          id="productId"
+          formControlName="productId"
+          class="form-control"
+        >
+          <option value="">Select a product</option>
+          <option *ngFor="let product of products" [value]="product.id">
+            {{ product.name }} (Stock: {{ product.quantity }})
+          </option>
+        </select>
+        <span *ngIf="orderForm.get('productId')?.invalid && orderForm.get('productId')?.touched" class="error-text">
+          {{ getErrorMessage('productId') }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity *</label>
+        <input
+          type="number"
+          id="quantity"
+          formControlName="quantity"
+          class="form-control"
+          placeholder="0"
+          min="1"
+        />
+        <span *ngIf="orderForm.get('quantity')?.invalid && orderForm.get('quantity')?.touched" class="error-text">
+          {{ getErrorMessage('quantity') }}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="type">Order Type *</label>
+        <select
+          id="type"
+          formControlName="type"
+          class="form-control"
+        >
+          <option value="IN">Inflow (Stock In)</option>
+          <option value="OUT">Outflow (Stock Out)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status *</label>
+        <select
+          id="status"
+          formControlName="status"
+          class="form-control"
+        >
+          <option value="PENDING">Pending</option>
+          <option value="COMPLETED">Completed</option>
+          <option value="CANCELLED">Cancelled</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="orderDate">Order Date *</label>
+      <input
+        type="datetime-local"
+        id="orderDate"
+        formControlName="orderDate"
+        class="form-control"
+      />
+      <span *ngIf="orderForm.get('orderDate')?.invalid && orderForm.get('orderDate')?.touched" class="error-text">
+        {{ getErrorMessage('orderDate') }}
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Notes</label>
+      <textarea
+        id="notes"
+        formControlName="notes"
+        class="form-control"
+        rows="4"
+        placeholder="Add notes about this order"
+      ></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="submit"
+        [disabled]="orderForm.invalid || loading"
+        class="btn btn-primary"
+      >
+        {{ isEditMode ? 'Update Order' : 'Create Order' }}
+      </button>
+      <a routerLink="/orders" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>

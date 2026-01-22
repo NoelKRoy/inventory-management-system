@@ -1,0 +1,387 @@
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0 0 2rem 0;
+  border-bottom: 3px solid #007bff;
+  padding-bottom: 1rem;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.loading {
+  color: #007bff;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #545b62;
+}
+
+.btn-small {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.btn-mini {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #117a8b;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.metric-card {
+  background: white;
+  border-left: 4px solid #007bff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.metric-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.metric-card .value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff;
+  margin: 0.5rem 0;
+}
+
+.metric-card .value.warning {
+  color: #ffc107;
+}
+
+.metric-card .subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.metric-card .link {
+  display: block;
+  margin-top: 0.5rem;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.metric-card .link:hover {
+  text-decoration: underline;
+}
+
+/* Sections */
+.section {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+}
+
+.section h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+/* Products List */
+.products-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.product-item {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.product-item:hover {
+  border-color: #ffc107;
+  background: white;
+  box-shadow: 0 2px 6px rgba(255, 193, 7, 0.2);
+}
+
+.product-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.product-stock {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.product-stock .label {
+  color: #666;
+}
+
+.product-stock .value {
+  font-weight: 600;
+  color: #ffc107;
+}
+
+/* Orders List */
+.orders-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.order-item {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-left: 4px solid #ff9800;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.order-id {
+  font-weight: 600;
+  color: #333;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.order-details {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: #666;
+  flex-wrap: wrap;
+}
+
+.order-details .product {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Recent Orders Table */
+.recent-orders-table {
+  overflow-x: auto;
+}
+
+.recent-orders-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-orders-table thead {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.recent-orders-table th {
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #666;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.recent-orders-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+  color: #333;
+}
+
+.recent-orders-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Quick Stats */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.stat {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat h4 {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.stat p {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .products-list {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 1rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .recent-orders-table table {
+    font-size: 0.85rem;
+  }
+
+  .recent-orders-table th,
+  .recent-orders-table td {
+    padding: 0.5rem;
+  }
+}
